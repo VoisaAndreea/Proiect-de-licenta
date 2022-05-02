@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "755924812597",
+    "firebase_url": "https://registerandloginproject-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "registerandloginproject",
+    "storage_bucket": "registerandloginproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755924812597:android:a2da985c5f0b52ca09027c",
+        "android_client_info": {
+          "package_name": "com.example.foodsuggestions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755924812597-jfcufk0hd1uda7ov6upbl3r5ebldbdvb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodsuggestions",
+            "certificate_hash": "dbded9a560a49f487dae0a11a9b093c2572b9f83"
+          }
+        },
+        {
+          "client_id": "755924812597-jqti214apuu7mb7jd5tg7bgt0ugioe8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzLxas-2kYe6Rrj2lS9FbtH2izoFplNlo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755924812597-jqti214apuu7mb7jd5tg7bgt0ugioe8h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
