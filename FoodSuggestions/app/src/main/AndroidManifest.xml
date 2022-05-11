@@ -9,14 +9,32 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FoodSuggestions">
+        android:theme="@style/Theme.FoodSuggestions"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".RecipesActivity"
+            android:name=".main.ContActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".firebase.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".firebase.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.ShowRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.RecipesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

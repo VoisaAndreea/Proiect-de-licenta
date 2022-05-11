@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp">
+
+    <TextView
+        android:id="@+id/idAmount"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/idUnit"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/idNameIngredient"
+        android:layout_width="202dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="32dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-thin"
+        android:layout_marginStart="130dp" />
+</RelativeLayout>

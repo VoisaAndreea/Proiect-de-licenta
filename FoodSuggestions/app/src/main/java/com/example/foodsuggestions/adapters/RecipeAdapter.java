@@ -1,6 +1,7 @@
-package com.example.foodsuggestions;
+package com.example.foodsuggestions.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +12,26 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodsuggestions.R;
+import com.example.foodsuggestions.main.ShowRecipeActivity;
+import com.example.foodsuggestions.models.Recipe;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>  {
 
     public List<Recipe> recipe;
 
     public LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
 
     public RecipeAdapter(Context context, List<Recipe> recipe) {
         this.recipe = recipe;
         this.mInflater = LayoutInflater.from(context);
     }
 
-
     //Pentru a stoca informatii despre vizualizarea unui singur element din lista
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView nameRecipe;
         ImageView imageRecipe;
@@ -40,25 +42,27 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             super(itemView);
 
             continer = itemView.findViewById(R.id.action_container);
-
-            nameRecipe = (TextView) itemView.findViewById(R.id.idTitleRe);
-            imageRecipe = (ImageView) itemView.findViewById(R.id.idImageRe);
-
-            itemView.setOnClickListener(this);
-
+            nameRecipe = itemView.findViewById(R.id.idTitleRe);
+            imageRecipe = itemView.findViewById(R.id.idImageRe);
         }
 
-        @Override
-        public void onClick(View v) {
-            if (mClickListener != null)
-                mClickListener.onItemClick(v, getAdapterPosition());
-        }
     }
 
     public RecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.from(parent.getContext()).inflate(R.layout.row_recipe,parent,false);
+        RecipeAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
-        return new ViewHolder(view);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position =  viewHolder.getBindingAdapterPosition();
+                Intent intent = ShowRecipeActivity.getIntent(recipe.get(position), parent.getContext());
+                parent.getContext().startActivity(intent);
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override
@@ -70,23 +74,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     }
 
+
     @Override
     public int getItemCount() {
         return recipe == null ? 0 : recipe.size();
     }
 
     String getItem(int id) {
-        return recipe.get(id).getTitle();
+        return recipe.get(id).getImage();
     }
 
-    //metoda pentru a memora item-ul pe care se face click-ul
-    void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    //interfata pentru a implementa metoda onItemClick-pentru a raspunde la evenimentele de click
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
 
 }

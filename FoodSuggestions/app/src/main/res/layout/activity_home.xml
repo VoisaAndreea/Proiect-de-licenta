@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.RecipesActivity">
+    tools:context=".main.HomeActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idListRecipes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="1dp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="269dp"
+        android:text="@string/homeActivity" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/idNavbar"
@@ -25,5 +27,4 @@
         app:itemIconSize="30dp"
         app:labelVisibilityMode="unlabeled"
         app:itemIconTint="@drawable/item_selector"/>
-
 </RelativeLayout>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.ShowRecipeActivity">
+
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="0dp">
+
+
+       <com.google.android.material.tabs.TabLayout
+           android:id="@+id/idToolBar"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:tabMode="scrollable">
+
+<!--           <com.google.android.material.tabs.TabItem-->
+<!--               android:id="@+id/buttonDetails"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:text="@string/details"/>-->
+
+<!--           <com.google.android.material.tabs.TabItem-->
+<!--               android:id="@+id/buttonIngredients"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:text="@string/ingredients"/>-->
+
+<!--           <com.google.android.material.tabs.TabItem-->
+<!--               android:id="@+id/buttonInstructions"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:text="@string/instructions"/>-->
+
+<!--           <com.google.android.material.tabs.TabItem-->
+<!--               android:id="@+id/buttonFeedback"-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:layout_height="wrap_content"-->
+<!--               android:text="@string/feedback"/>-->
+
+       </com.google.android.material.tabs.TabLayout>
+
+   </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id = "@+id/idViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+
+    <!--    <ImageView-->
+<!--        android:id="@+id/idImageShow"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="220dp"-->
+<!--        android:layout_marginStart="0dp"-->
+<!--        android:layout_marginLeft="290dp"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:layout_marginBottom="0dp"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:scaleType="fitXY" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/idTitleShow"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginLeft="0dp"-->
+<!--        android:layout_marginTop="225dp"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="21sp"-->
+<!--        android:textAlignment="center"-->
+<!--        android:fontFamily="sans-serif-thin"-->
+
+<!--        android:textStyle="bold"-->
+<!--        android:gravity="center_horizontal" />-->
+
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonIngredients"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="300dp"-->
+<!--        android:layout_marginStart="1dp"-->
+<!--        android:text="@string/ingredients"-->
+
+<!--        android:background="@drawable/custom_button"-->
+<!--        android:backgroundTint="@null"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:layout_marginLeft="50dp"-->
+<!--        />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonInstructions"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="300dp"-->
+<!--        android:layout_marginStart="142dp"-->
+<!--        android:text="@string/instructions"-->
+<!--        android:background="@drawable/custom_button"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:backgroundTint="@null"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:layout_marginLeft="50dp" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/buttonFeedback"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="300dp"-->
+<!--        android:layout_marginStart="295dp"-->
+<!--        android:text="@string/feedback"-->
+<!--        android:background="@drawable/custom_button"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:backgroundTint="@null"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:layout_marginLeft="295dp" />-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/idListIngredients"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginTop="420dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textInformative"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/serving"-->
+<!--        android:textSize="17sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:fontFamily="sans-serif-thin"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginTop="380dp"/>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editAmount"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="160dp"-->
+<!--        android:layout_marginTop="360dp"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="number"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginLeft="160dp" />-->
+
+
+<!--    <ListView-->
+<!--        android:id="@+id/idListInstructions"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="17sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:fontFamily="sans-serif-thin"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginTop="360dp"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textRowInstruction"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="360dp"-->
+<!--        android:textSize="17sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:fontFamily="sans-serif-thin"-->
+<!--        android:isScrollContainer="true"-->
+<!--        android:visibility="gone"-->
+<!--        />-->
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
