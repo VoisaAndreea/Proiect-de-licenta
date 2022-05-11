@@ -28,7 +28,7 @@
             android:name=".firebase.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".main.ShowRecipe"
+            android:name=".main.ShowRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".main.RecipesActivity"

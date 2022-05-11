@@ -10,16 +10,7 @@
         android:id="@+id/idListRecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="1dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/idNavbar"
@@ -28,9 +19,6 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
         android:elevation="2dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="67dp"
-        tools:layout_editor_absoluteY="645dp"
         android:background="@drawable/round_corner"
         app:menu="@menu/item_menu"
         app:itemRippleColor="@android:color/transparent"

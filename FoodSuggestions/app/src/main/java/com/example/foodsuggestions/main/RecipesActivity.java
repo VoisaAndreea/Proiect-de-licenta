@@ -23,14 +23,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesActivity extends AppCompatActivity  {
+
 
     private List<Recipe> listRecipe;
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
 
     private ArrayList<Object> objectArrayList;
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
     private String TAG = RecipesActivity.class.getSimpleName();
 
@@ -45,7 +46,8 @@ public class RecipesActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+                //overridePendingTransition(0,0) - aceasta "elimina" animatia care se face atunci cand
+                //se trece de la o activitate la alta(care e destul de deranjanta)
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         startActivity(new Intent(RecipesActivity.this, HomeActivity.class));
@@ -98,58 +100,5 @@ public class RecipesActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-        //new getRecipes().execute();
-
-        //recipeAdapter.setClickListener(this);
     }
-
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        Toast.makeText(RecipesActivity.this, "Ce a fost selectat: " + recipeAdapter.getItem(position), Toast.LENGTH_SHORT).show();
-//
-//
-//    }
-
-//    private class getRecipes extends AsyncTask<Void, Void, List<Recipe>> implements RecipeAdapter.ItemClickListener{
-//
-//        @Override
-//        protected List<Recipe> doInBackground(Void... voids) {
-//
-//            HttpHandler sh = new HttpHandler();
-//            // Making a request to url and getting response
-//            String url = "http://192.168.50.74:8045/getRecipes";
-//            String jsonStr = sh.makeServiceCall(url);
-//
-//            return new Gson().fromJson(jsonStr, new TypeToken<List<Recipe>>(){}.getType());
-//
-//        }
-//
-//        protected void onPostExecute(List<Recipe> result) {
-//            super.onPostExecute(result);
-//            //this method will be running on UI thread
-//            recipeAdapter = new RecipeAdapter (RecipesActivity.this, result);
-//
-//            //se face aranjarea elementelor din lista
-//            RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
-//            recyclerView.setLayoutManager(manager);
-//            recyclerView.setHasFixedSize(true);
-//            recyclerView.setAdapter(recipeAdapter);
-//
-//
-//            recipeAdapter.setClickListener(this);
-//
-//        }
-//        @Override
-//        public void onItemClick(View view, int position) {
-//            //Toast.makeText(RecipesActivity.this, objectArrayList.get(position).toString(),Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(RecipesActivity.this, ShowRecipe.class);
-//            intent.putExtra("json", objectArrayList.get(position).toString());
-//            startActivity(intent);
-//
-//
-//        }
-//    }
 }

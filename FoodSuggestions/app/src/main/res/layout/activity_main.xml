@@ -16,9 +16,7 @@
         android:layout_height="290dp"
         android:layout_marginTop="56dp"
         android:layout_gravity="center"
-        android:background="@drawable/girl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/girl" />
 
     <TextView
         android:id="@+id/textView"
@@ -29,9 +27,7 @@
         android:textColor="#ffb366"
         android:textSize="29sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/textViewJoin"
@@ -42,9 +38,7 @@
         android:textColor="#ffb366"
         android:textSize="23sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="center" />
 
 
     <Button
@@ -60,8 +54,6 @@
         android:textColor="#ffb366"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:backgroundTint="@null" />
 
 </LinearLayout>

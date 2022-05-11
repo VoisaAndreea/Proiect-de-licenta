@@ -8,6 +8,23 @@
     <string name="feedback">Feedback</string>
     <string name="details">Recipe</string>
     <string name="serving">Number of servings: </string>
+    <string name="searchActivity">SEARCH ACTIVITY</string>
+    <string name="homeActivity">HOME ACTIVITY</string>
+    <string name="accountActivity">PERSONAL CONT ACTIVITY</string>
+
+    <string name="loginHere">Login Here</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="messageAccount">Don\'t have an account?</string>
+    <string name="registerNow">Register now</string>
+
+    <string name="registerHere">Register Here</string>
+    <string name="fullName">Full Name</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="messageLogin">Already have an account?</string>
+    <string name="loginNow">Login now</string>
 
     <string name="home">Home</string>
     <string name="search">Search</string>

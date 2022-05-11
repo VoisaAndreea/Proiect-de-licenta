@@ -19,7 +19,6 @@ public class  IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter
     public ArrayList<Ingredients> ingredientsArrayList;
 
     public LayoutInflater mInflater;
-    private RecipeAdapter.ItemClickListener mClickListener;
 
     public IngredientsAdapter(Context context, ArrayList<Ingredients> ingredientsArrayList) {
         this.ingredientsArrayList = ingredientsArrayList;
@@ -36,9 +35,9 @@ public class  IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.amoundText.setText(ingredientsArrayList.get(position).amount);
-        holder.unitText.setText(ingredientsArrayList.get(position).unit);
-        holder.ingredientText.setText(ingredientsArrayList.get(position).name);
+        holder.amoundText.setText(ingredientsArrayList.get(position).getAmount());
+        holder.unitText.setText(ingredientsArrayList.get(position).getUnit());
+        holder.ingredientText.setText(ingredientsArrayList.get(position).getName());
     }
 
     @Override

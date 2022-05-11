@@ -24,11 +24,6 @@ public class InstructionAdapter extends RecyclerView.Adapter<InstructionAdapter.
         this.mInflater = LayoutInflater.from(context);
     }
 
-//    public InstructionAdapter(Context context, String string) {
-//        this.string = string;
-//        this.mInflater = LayoutInflater.from(context);
-//    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,13 +34,12 @@ public class InstructionAdapter extends RecyclerView.Adapter<InstructionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textInstr.setText(
-                instructions.get(position).steps.get(0).step);
+        holder.textInstr.setText(instructions.get(0).getSteps().get(position).getStep());
     }
 
     @Override
     public int getItemCount() {
-        return instructions == null ? 0 : instructions.size();
+        return instructions == null ? 0 : instructions.get(0).getSteps().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

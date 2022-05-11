@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Here"
+        android:text="@string/registerHere"
         android:textSize="25sp"
         android:layout_marginStart="25dp"
         android:textColor="#ffb366"
@@ -32,81 +32,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Full Name"
+        android:hint="@string/fullName"
         android:inputType="text"
         android:maxLines="1"
-        android:layout_marginStart="25sp"
-        android:layout_marginEnd="25sp"
+        android:layout_marginHorizontal="25sp"
         android:layout_marginTop="5sp"
         android:layout_gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
-        android:minHeight="48dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="0dp" />
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/idREmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="E-mail"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:maxLines="1"
-        android:layout_marginStart="25sp"
-        android:layout_marginEnd="25sp"
+        android:layout_marginHorizontal="25sp"
         android:layout_marginTop="25sp"
         android:layout_gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
-        android:minHeight="48dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="0dp" />
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/idRPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:layout_marginStart="25sp"
-        android:layout_marginEnd="25sp"
+        android:layout_marginHorizontal="25sp"
         android:layout_marginTop="30sp"
         android:layout_gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
-        android:minHeight="48dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="0dp" />
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/idRConfPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Confirm Password"
+        android:hint="@string/confirm"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:layout_marginStart="25sp"
-        android:layout_marginEnd="25sp"
+        android:layout_marginHorizontal="25sp"
         android:layout_marginTop="30sp"
         android:layout_gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
-        android:minHeight="48dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="0dp" />
+        android:minHeight="48dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/idRegisterButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="#ffb366"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -123,7 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account? "
+            android:text="@string/messageLogin"
             android:textColor="#ffb366"
             android:textSize="17sp"
             android:fontFamily="sans-serif-condensed" />
@@ -132,12 +119,11 @@
             android:layout_marginStart="5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login now"
+            android:text="@string/loginNow"
             android:textStyle="bold"
             android:textColor="#ffb366"
             android:textSize="17sp"
-            android:fontFamily="sans-serif-condensed"
-            android:layout_marginLeft="5sp" />
+            android:fontFamily="sans-serif-condensed" />
 
     </LinearLayout>
 

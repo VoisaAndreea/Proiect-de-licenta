@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceProvider {
     private RecipeAPI recipeAPI;
 
-    public ServiceProvider() {
+    private ServiceProvider() {
     }
 
     private static ServiceProvider instance;
@@ -16,7 +16,7 @@ public class ServiceProvider {
             instance = new ServiceProvider();
 
             Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.103:8045/")
+                .baseUrl("http://192.168.50.74:8045/")
                     .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

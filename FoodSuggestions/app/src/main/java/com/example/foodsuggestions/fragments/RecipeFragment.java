@@ -14,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 
 public class RecipeFragment extends Fragment {
+    private static final String TITLE_KEY = "TITLE_KEY";
+    private static final String IMAGE_KEY = "IMAGE_KEY";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,10 +28,20 @@ public class RecipeFragment extends Fragment {
         Bundle data = getArguments();
 
         if(data != null){
-            textView.setText(data.getString("titleRet"));
-            Picasso.with(imageView.getContext()).load(data.getString("imageRet")).into(imageView);
+            textView.setText(data.getString(TITLE_KEY));
+            Picasso.with(imageView.getContext()).load(data.getString(IMAGE_KEY)).into(imageView);
         }
         return view;
+    }
+
+
+    public static RecipeFragment newInstance(String title, String imagePath){
+        Bundle args = new Bundle();
+        args.putString(TITLE_KEY, title);
+        args.putString(IMAGE_KEY, imagePath);
+        RecipeFragment fragment = new RecipeFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
 }
