@@ -4,18 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     tools:context=".main.ContActivity">
 
+    <ImageView
+        android:id="@+id/imagePresentation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/couple"
+        android:layout_marginHorizontal="65dp"
+        android:layout_marginBottom="445dp"
+        />
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/nameUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="292dp"
-        android:text="@string/accountActivity" />
+        android:layout_centerInParent="true"
+        android:layout_alignBottom="@+id/imagePresentation"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="#ffb366"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/mailUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameUser"
+        android:layout_centerInParent="true"
+        android:fontFamily="sans-serif"
+        android:textColor="#a6a6a6"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/idLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="520dp"
+        android:background="@drawable/button_pressed"
+        android:text="@string/logout"
+        android:textAllCaps="false"
+        android:textColor="#ffb366"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/idNavbar"
+        android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

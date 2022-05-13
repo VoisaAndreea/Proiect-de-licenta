@@ -16,24 +16,18 @@ import com.example.foodsuggestions.models.Recipe;
 import com.example.foodsuggestions.retrofit.ServiceProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecipesActivity extends AppCompatActivity  {
-
-
-    private List<Recipe> listRecipe;
+public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.RecipeListener {
+    private String TAG = RecipesActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
-
-    private ArrayList<Object> objectArrayList;
     private BottomNavigationView bottomNavigationView;
 
-    private String TAG = RecipesActivity.class.getSimpleName();
 
 
     @Override
@@ -41,7 +35,7 @@ public class RecipesActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        bottomNavigationView = findViewById(R.id.idNavbar);
+        bottomNavigationView = findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.nav_recipes);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -68,8 +62,15 @@ public class RecipesActivity extends AppCompatActivity  {
 
         recyclerView = (RecyclerView) findViewById(R.id.idListRecipes);
 
-        listRecipe = new ArrayList<Recipe>();
-        objectArrayList = new ArrayList<Object>();
+
+        //se face aranjarea elementelor din lista
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setHasFixedSize(true);
+
+        recipeAdapter = new RecipeAdapter (RecipesActivity.this);
+        recipeAdapter.setListener(this);
+        recyclerView.setAdapter(recipeAdapter);
 
         ServiceProvider.getInstance().getRecipeAPI().getRecipes().enqueue(new Callback<List<Recipe>>() {
             @Override
@@ -77,14 +78,8 @@ public class RecipesActivity extends AppCompatActivity  {
                 if(response.isSuccessful()){
 
                     //this method will be running on UI thread
-                    recipeAdapter = new RecipeAdapter (RecipesActivity.this, response.body());
 
-                    //se face aranjarea elementelor din lista
-                    RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
-                    recyclerView.setLayoutManager(manager);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setAdapter(recipeAdapter);
-
+                    recipeAdapter.updateRecipes(response.body());
 
                 }
                 else{
@@ -100,5 +95,11 @@ public class RecipesActivity extends AppCompatActivity  {
             }
 
         });
+    }
+
+    @Override
+    public void onRecipeSelected(Recipe recipe) {
+        Intent intent = ShowRecipeActivity.getIntent(recipe, this);
+        startActivity(intent);
     }
 }
