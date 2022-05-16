@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodsuggestions.BuildConfig;
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.databinding.ActivityLoginBinding;
 import com.example.foodsuggestions.main.RecipesActivity;
@@ -31,6 +32,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
         binding.idLoginButton.setOnClickListener(this);
         binding.idRegisterBtn.setOnClickListener(this);
+
+        if (BuildConfig.DEBUG) {
+            binding.idLEmail.setText("test@test.com");
+            binding.idLPassword.setText("123456");
+        }
     }
 
     @Override
