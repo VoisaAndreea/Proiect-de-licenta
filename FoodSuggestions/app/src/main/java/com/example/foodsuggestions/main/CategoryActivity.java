@@ -1,31 +1,36 @@
 package com.example.foodsuggestions.main;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Predicate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.RecipeAdapter;
+import com.example.foodsuggestions.data.RecipesRepository;
 import com.example.foodsuggestions.databinding.ActivityCategoryBinding;
 import com.example.foodsuggestions.models.Recipe;
-import com.example.foodsuggestions.retrofit.ServiceProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class CategoryActivity extends AppCompatActivity implements RecipeAdapter.RecipeListener {
+
+    private static final String FILTER_CATEGORY_KEY = "filterCategoryKey";
+
+    public static Intent getIntent(Context context, FilterCriteria filter) {
+        Intent intent = new Intent(context, CategoryActivity.class);
+        intent.putExtra(FILTER_CATEGORY_KEY, filter);
+        return intent;
+    }
+
     private ActivityCategoryBinding binding;
     private RecipeAdapter recipeAdapter;
 
@@ -35,7 +40,7 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Bundle bundle = getIntent().getExtras();
+        FilterCriteria filter = (FilterCriteria) getIntent().getSerializableExtra(FILTER_CATEGORY_KEY);
 
         binding.navigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -70,73 +75,16 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         recipeAdapter.setListener(this);
         binding.listCategory.setAdapter(recipeAdapter);
 
-
-        ServiceProvider.getInstance().getRecipeAPI().getRecipes().enqueue(new Callback<List<Recipe>>() {
+        RecipesRepository.getInstance().getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                if(response.isSuccessful()){
-                    List<Recipe> recipeList = response.body();
-
-                    Log.d(CategoryActivity.class.getSimpleName(), "SIZE: " + recipeList.size());
-                        for (int i = 0; i < recipeList.size(); i++) {
-                            if (recipeList.get(i) != null && recipeList.get(i).getDairyFree().equals(bundle.getString("DAIRY_KEY"))) {
-                                recipeAdapter.updateRecipes(Collections.singletonList(recipeList.get(i)));
-                            } else if (recipeList.get(i) != null && recipeList.get(i).getGlutenFree().equals(bundle.getString("GLUTEN_KEY"))) {
-                                recipeAdapter.updateRecipes(Collections.singletonList(recipeList.get(i)));
-                            }
-
-                            else if(!recipeList.get(i).getDishTypes().isEmpty()){
-                                if (bundle.getString("DISH_KEY") != null && bundle.getString("DISH_KEY").equals("lunch")) {
-                                    for (int j = 0; j < recipeList.get(i).getDishTypes().size(); j++) {
-                                        if (recipeList.get(i).getDishTypes().get(j).equals(bundle.getString("DISH_KEY"))) {
-                                            recipeAdapter.updateRecipes(Collections.singletonList(recipeList.get(i)));
-                                        }
-                                    }
-                                }
-
-                                else if(bundle.getString("DISH_KEY") != null && bundle.getString("DISH_KEY").equals("side dish")){
-                                    for(int j = 0; j < recipeList.get(i).getDishTypes().size(); j++){
-                                        if(recipeList.get(i).getDishTypes().get(j).equals(bundle.getString("DISH_KEY"))){
-                                            recipeAdapter.updateRecipes(Collections.singletonList(recipeList.get(i)));
-                                        }
-                                    }
-                                }
-
-                                else if(bundle.getString("DISH_KEY") != null && bundle.getString("DISH_KEY").equals("main dish")){
-                                    for(int j = 0; j < recipeList.get(i).getDishTypes().size(); j++){
-                                        if(recipeList.get(i).getDishTypes().get(j).equals(bundle.getString("DISH_KEY"))){
-                                            recipeAdapter.updateRecipes(Collections.singletonList(recipeList.get(i)));
-                                        }
-                                    }
-                                }
-
-                                else if(bundle.getString("DISH_KEY") != null && bundle.getString("DISH_KEY").equals("dinner")){
-                                    for(int j = 0; j < recipeList.get(i).getDishTypes().size(); j++){
-                                        if(recipeList.get(i).getDishTypes().get(j).equals(bundle.getString("DISH_KEY"))){
-                                            recipeAdapter.updateRecipes(Collections.singletonList(recipeList.get(i)));
-                                        }
-                                    }
-                                }
-                            }
-                        Log.d(CategoryActivity.class.getSimpleName(), "DISH SIZE: " + recipeList.get(i).getDishTypes().size());
-                        }
-
-                    Log.d(CategoryActivity.class.getSimpleName(), "BUNDLE: " + bundle);
-                    //this method will be running on UI thread
-
-                }
-                else{
-                    Toast.makeText(CategoryActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-                }
-
+            public void onRecipesReceived(List<Recipe> recipes) {
+                recipeAdapter.updateRecipes(recipes);
             }
 
-
             @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Toast.makeText(CategoryActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Throwable t) {
+                // should not happen because no call is made
             }
-
         });
     }
 
@@ -146,4 +94,34 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private Predicate<Recipe> getPredicate(FilterCriteria criteria) {
+        if (criteria.query != null) {
+            return recipe -> recipe.getDishTypes().stream().anyMatch(s -> s.equals(criteria.query));
+        } else if (criteria.isDairyFree) {
+            return recipe -> recipe.getDairyFree().equals("true");
+        } else if (criteria.isGlutenFree) {
+            return recipe -> recipe.getGlutenFree().equals("true");
+        } else {
+            return null;
+        }
+    }
+
+    static class FilterCriteria implements Serializable {
+        final boolean isDairyFree; // used for dairy filtering
+        final boolean isGlutenFree; // used for gluten filtering
+        final String query; // used for dish type
+
+        FilterCriteria(boolean isDairyFree, boolean isGlutenFree) {
+            this.isDairyFree = isDairyFree;
+            this.isGlutenFree = isGlutenFree;
+            this.query = null;
+        }
+
+        FilterCriteria(String query) {
+            this.isDairyFree = false;
+            this.isGlutenFree = false;
+            this.query = query;
+        }
+    }
 }

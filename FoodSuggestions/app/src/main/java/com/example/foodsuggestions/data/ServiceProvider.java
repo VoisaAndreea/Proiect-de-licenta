@@ -1,4 +1,4 @@
-package com.example.foodsuggestions.retrofit;
+package com.example.foodsuggestions.data;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,7 +16,7 @@ public class ServiceProvider {
             instance = new ServiceProvider();
 
             Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.124:8045/")
+                    .baseUrl("http://192.168.0.123:8045/")
                     .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

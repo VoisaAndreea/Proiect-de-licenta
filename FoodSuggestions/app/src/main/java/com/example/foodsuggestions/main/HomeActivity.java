@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.databinding.ActivityHomeBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,33 +59,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(HomeActivity.this, CategoryActivity.class);
+        Intent intent = null;
         switch (v.getId()){
             case R.id.idGluten:
-                intent.putExtra(GLUTEN_KEY, "true");
-                startActivity(intent);
+                intent = CategoryActivity.getIntent(this, new CategoryActivity.FilterCriteria(false, true));
                 break;
             case R.id.idDairy:
-                intent.putExtra(DAIRY_KEY, "true");
-                startActivity(intent);
+                intent = CategoryActivity.getIntent(this, new CategoryActivity.FilterCriteria(true, false));
                 break;
             case R.id.idLunch:
-                intent.putExtra(DISH_KEY, "lunch");
-                startActivity(intent);
+                intent = CategoryActivity.getIntent(this, new CategoryActivity.FilterCriteria("lunch"));
                 break;
             case R.id.idDish:
-                intent.putExtra(DISH_KEY, "main dish");
-                startActivity(intent);
+                intent = CategoryActivity.getIntent(this, new CategoryActivity.FilterCriteria("main dish"));
                 break;
             case R.id.idSide:
-                intent.putExtra(DISH_KEY, "side dish");
-                startActivity(intent);
+                intent = CategoryActivity.getIntent(this, new CategoryActivity.FilterCriteria("side dish"));
                 break;
             case R.id.idDinner:
-                intent.putExtra(DISH_KEY, "dinner");
-                startActivity(intent);
+                intent = CategoryActivity.getIntent(this, new CategoryActivity.FilterCriteria("dinner"));
                 break;
-
         }
+        startActivity(intent);
     }
 }
