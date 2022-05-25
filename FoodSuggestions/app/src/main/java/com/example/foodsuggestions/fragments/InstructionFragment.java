@@ -59,8 +59,11 @@ public class InstructionFragment extends Fragment {
         return view;
     }
 
-    public static InstructionFragment newInstance(List<Instructions> instructionsList,
-                                                  String summary, String sourceUrl){
+    public static InstructionFragment newInstance(
+            List<Instructions> instructionsList,
+            String summary,
+            String sourceUrl
+    ){
         Bundle args = new Bundle();
         args.putParcelableArrayList(INSTRUCTION_KEY, new ArrayList<>(instructionsList));
         args.putString(SUMMARY_KEY, summary);

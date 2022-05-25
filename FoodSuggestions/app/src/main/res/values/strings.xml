@@ -25,6 +25,7 @@
     <string name="register">Register</string>
     <string name="messageLogin">Already have an account?</string>
     <string name="loginNow">Login now</string>
+    <string name="logout">LOG OUT</string>
 
     <string name="home">Home</string>
     <string name="search">Search</string>

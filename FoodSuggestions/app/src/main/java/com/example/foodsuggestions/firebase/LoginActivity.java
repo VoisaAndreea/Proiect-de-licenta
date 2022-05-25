@@ -2,98 +2,98 @@ package com.example.foodsuggestions.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodsuggestions.BuildConfig;
 import com.example.foodsuggestions.R;
+import com.example.foodsuggestions.databinding.ActivityLoginBinding;
 import com.example.foodsuggestions.main.RecipesActivity;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView registerLink;
-    EditText email, password;
-    Button loginButton;
-
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://registerandloginproject-default-rtdb.europe-west1.firebasedatabase.app")
-                                                          .getReference();
+    private FirebaseAuth mAuth;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        email = findViewById(R.id.idLEmail);
-        password = findViewById(R.id.idLPassword);
-        registerLink = findViewById(R.id.idRegisterBtn);
-        loginButton = findViewById(R.id.idLoginButton);
+        mAuth = FirebaseAuth.getInstance();
+        binding.idLoginButton.setOnClickListener(this);
+        binding.idRegisterBtn.setOnClickListener(this);
 
-        loginButton.setOnClickListener(this);
-        registerLink.setOnClickListener(this);
+        if (BuildConfig.DEBUG) {
+            binding.idLEmail.setText("test@test.com");
+            binding.idLPassword.setText("123456");
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-
             case(R.id.idRegisterBtn):
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
 
             case(R.id.idLoginButton):
-                String emailLogin = email.getText().toString();
-                String passwordLogin = password.getText().toString();
-
-                if(emailLogin.isEmpty() || passwordLogin.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Please enter your email or password",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            //Se va verifica daca email-ul exista in baza de date sau nu
-                            if(snapshot.hasChild(emailLogin)){
-                                final String getPassword = snapshot.child(emailLogin)
-                                                    .child("password").getValue(String.class);
-
-                                if(getPassword.equals(passwordLogin)){
-                                    Toast.makeText(LoginActivity.this,
-                                            "Successfully Logged in", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(LoginActivity.this, RecipesActivity.class));
-                                    finish();
-                                }
-                                else{
-                                    Toast.makeText(LoginActivity.this,
-                                            "Wrong Password", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            else{
-                                Toast.makeText(LoginActivity.this,
-                                        "E-mail is not registered", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
+                userLogin();
                 break;
+        }
+    }
 
+    private void userLogin() {
+        String emailLogin = binding.idLEmail.getText().toString().trim();
+        String passwordLogin = binding.idLPassword.getText().toString().trim();
+
+        if(emailLogin.isEmpty()){
+            binding.idLEmail.setError("Email is required!");
+            binding.idLEmail.requestFocus();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(emailLogin).matches()){
+            binding.idLEmail.setError("Please provide valid email");
+            binding.idLEmail.requestFocus();
+            return;
+        }
+        if(passwordLogin.isEmpty()){
+            binding.idLPassword.setError("Email is required!");
+            binding.idLPassword.requestFocus();
+            return;
+        }
+        if(passwordLogin.length() < 6){
+            binding.idLPassword.setError("Min password length should be 6 characters!");
+            binding.idLPassword.requestFocus();
+            return;
         }
 
+        mAuth.signInWithEmailAndPassword(emailLogin, passwordLogin)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    binding.idLEmail.getText().clear();
+                    binding.idLPassword.getText().clear();
+                    startActivity(new Intent(LoginActivity.this, RecipesActivity.class));
+                    finish();
+                }else{
+                    Toast.makeText(
+                            LoginActivity.this,
+                            "Filed to login! Please check your credentials or register.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+        });
     }
 }

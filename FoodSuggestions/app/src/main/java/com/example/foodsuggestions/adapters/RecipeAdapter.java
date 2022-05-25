@@ -1,7 +1,6 @@
 package com.example.foodsuggestions.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,29 +12,34 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodsuggestions.R;
-import com.example.foodsuggestions.main.ShowRecipeActivity;
 import com.example.foodsuggestions.models.Recipe;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>  {
 
-    public List<Recipe> recipe;
+    private List<Recipe> recipe = new ArrayList<>();
+    private RecipeListener listener;
+    private final LayoutInflater mInflater;
 
-    public LayoutInflater mInflater;
-
-    public RecipeAdapter(Context context, List<Recipe> recipe) {
-        this.recipe = recipe;
-        this.mInflater = LayoutInflater.from(context);
+    public void setListener(RecipeListener listener){
+        this.listener = listener;
+    }
+    public void updateRecipes(List<Recipe> recipe){
+        this.recipe.addAll(recipe);
+        notifyDataSetChanged();
     }
 
+    public RecipeAdapter(Context context) {
+        this.mInflater = LayoutInflater.from(context);
+    }
     //Pentru a stoca informatii despre vizualizarea unui singur element din lista
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView nameRecipe;
         ImageView imageRecipe;
-
         RelativeLayout continer;
 
         public ViewHolder(View itemView) {
@@ -53,13 +57,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         RecipeAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        viewHolder.itemView.setOnClickListener(v-> {
                 int position =  viewHolder.getBindingAdapterPosition();
-                Intent intent = ShowRecipeActivity.getIntent(recipe.get(position), parent.getContext());
-                parent.getContext().startActivity(intent);
-            }
+                listener.onRecipeSelected(recipe.get(position));
         });
 
         return viewHolder;
@@ -77,7 +77,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return recipe == null ? 0 : recipe.size();
+        return recipe.size();
     }
 
     String getItem(int id) {
@@ -85,4 +85,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
 
+    public interface RecipeListener{
+        void onRecipeSelected(Recipe recipe);
+    }
 }
