@@ -13,10 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityHomeBinding binding;
-    private static final String DAIRY_KEY = "DAIRY_KEY";
-    private static final String GLUTEN_KEY = "GLUTEN_KEY";
-    private static final String DISH_KEY = "DISH_KEY";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

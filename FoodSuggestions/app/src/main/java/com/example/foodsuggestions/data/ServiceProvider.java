@@ -16,7 +16,7 @@ public class ServiceProvider {
             instance = new ServiceProvider();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.0.123:8045/")
+                    .baseUrl("https://app-foodrecipes.herokuapp.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
