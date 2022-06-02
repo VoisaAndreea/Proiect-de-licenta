@@ -6,12 +6,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.RecipeAdapter;
-import com.example.foodsuggestions.data.RecipesRepository;
+import com.example.foodsuggestions.data.Result;
 import com.example.foodsuggestions.models.Recipe;
+import com.example.foodsuggestions.viewmodels.RecipesViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -61,18 +63,16 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
-        recipeAdapter = new RecipeAdapter (RecipesActivity.this);
+        recipeAdapter = new RecipeAdapter(RecipesActivity.this);
         recipeAdapter.setListener(this);
         recyclerView.setAdapter(recipeAdapter);
 
-        RecipesRepository.getInstance().getRecipes(null, new RecipesRepository.RecipesCallback() {
-            @Override
-            public void onRecipesReceived(List<Recipe> recipes) {
-                recipeAdapter.updateRecipes(recipes);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
+        RecipesViewModel model = new ViewModelProvider(this).get(RecipesViewModel.class);
+        model.getRecipes().observe(this, listOperationResponse -> {
+            if (listOperationResponse instanceof Result.Success) {
+                Result.Success<List<Recipe>> data = (Result.Success<List<Recipe>>) listOperationResponse;
+                recipeAdapter.updateRecipes(data.getData());
+            } else if (listOperationResponse instanceof Result.Error) {
                 Toast.makeText(RecipesActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
