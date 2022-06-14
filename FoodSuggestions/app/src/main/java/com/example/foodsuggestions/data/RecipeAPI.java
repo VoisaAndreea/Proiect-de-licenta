@@ -1,11 +1,10 @@
-package com.example.foodsuggestions.retrofit;
+package com.example.foodsuggestions.data;
 
 import com.example.foodsuggestions.models.Recipe;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
+
+import java.util.List;
 
 public interface RecipeAPI {
 

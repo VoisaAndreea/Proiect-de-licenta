@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.foodsuggestions.BuildConfig;
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.databinding.ActivityLoginBinding;
-import com.example.foodsuggestions.main.RecipesActivity;
+import com.example.foodsuggestions.main.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(task.isSuccessful()){
                     binding.idLEmail.getText().clear();
                     binding.idLPassword.getText().clear();
-                    startActivity(new Intent(LoginActivity.this, RecipesActivity.class));
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     finish();
                 }else{
                     Toast.makeText(
