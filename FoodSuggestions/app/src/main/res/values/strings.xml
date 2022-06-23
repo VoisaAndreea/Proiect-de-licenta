@@ -44,6 +44,11 @@
     <string name="side">Side Dish</string>
     <string name="dinner">Dinner</string>
 
+
+    <!--    Search Activity-->
+    <string name="searchHint">Search a recipe</string>
+    <string name="searchIngredient">Search after ingredients</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
