@@ -1,11 +1,14 @@
 package com.example.foodsuggestions.main;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.util.Predicate;
@@ -19,11 +22,14 @@ import com.example.foodsuggestions.databinding.ActivitySearchBinding;
 import com.example.foodsuggestions.models.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity implements RecipeAdapter.RecipeListener {
     private ActivitySearchBinding binding;
     private RecipeAdapter recipeAdapter;
+    FilterSearch filterSearch;
+    ArrayList<String> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +73,13 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
                 return false;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextChange(String newText) {
+                filterSearch = new FilterSearch(newText);
+
                 if (newText != null) {
-                    getResult(newText);
+                    getResult(filterSearch);
                     return true;
                 } else {
                     return false;
@@ -78,21 +87,36 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
             }
         });
 
-        binding.searchIngredients.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, SearchIngredientsActivity.class);
-                startActivity(intent);
-            }
+        binding.searchIngredients.setOnClickListener(view -> {
+            Intent intent = new Intent(SearchActivity.this, SearchIngredientsActivity.class);
+            startActivityForResult(intent, 123);
         });
 
     }
 
-    private void getResult(String newText){
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            ingredients = data.getStringArrayListExtra("INGREDIENTS_KEY");
+            filterSearch = new FilterSearch(ingredients);
+            getResult(filterSearch);
+            //Toast.makeText(this, "Item Selected: " + ingredients, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void getResult(FilterSearch newText){
         RecipesRepository.getInstance().getRecipes(getPredicate(newText), new RecipesRepository.RecipesCallback() {
             @Override
             public void onRecipesReceived(List<Recipe> recipes) {
+                for(Recipe r : recipes){
+                    Log.d("TAG", "RECIPES:" + r.getTitle());
+                }
                 recipeAdapter.updateRecipes(recipes);
+                Log.d("TAG", "RECIPES:" + recipes.size());
+                Log.d("TAG", "LIST INGREDIENNTS:" + ingredients);
             }
             @Override
             public void onFailure(Throwable t) {
@@ -103,11 +127,15 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
 
     }
 
-    private Predicate<Recipe> getPredicate(String criteria){
-        if (criteria != null) {
-            return recipe -> recipe.getTitle().contains(criteria);
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private Predicate<Recipe> getPredicate(FilterSearch criteria){
+        if (criteria.title != null) {
+            return recipe -> recipe.getTitle().toLowerCase().contains(criteria.title.toLowerCase());
+        } else if (criteria.ingredientList != null) {
+            return recipe -> recipe.getExtendedIngredients().get(0).getName().equals(criteria.ingredientList.get(0));
         } else {
             return null;
+
         }
     }
 
@@ -115,5 +143,20 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
     public void onRecipeSelected(Recipe recipe) {
         Intent intent = ShowRecipeActivity.getIntent(recipe, this);
         startActivity(intent);
+    }
+
+    static class FilterSearch {
+        final String title;
+        final ArrayList<String> ingredientList;
+
+        public FilterSearch(String title) {
+            this.title = title;
+            ingredientList = null;
+        }
+
+        public FilterSearch(ArrayList<String> ingredientList) {
+            this.ingredientList = ingredientList;
+            title = null;
+        }
     }
 }

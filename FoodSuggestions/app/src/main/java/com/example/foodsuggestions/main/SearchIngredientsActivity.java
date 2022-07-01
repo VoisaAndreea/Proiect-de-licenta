@@ -1,5 +1,7 @@
 package com.example.foodsuggestions.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodsuggestions.data.Result;
@@ -18,12 +21,15 @@ import com.example.foodsuggestions.models.Recipe;
 import com.example.foodsuggestions.viewmodels.RecipesViewModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SearchIngredientsActivity extends AppCompatActivity {
     ActivitySearchIngredientsBinding binding;
-    List<String> listIngredient;
+    Set<String> listIngredient;
     ArrayAdapter<String> arrayAdapter;
+    ArrayList<String> selectIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +37,37 @@ public class SearchIngredientsActivity extends AppCompatActivity {
         binding = ActivitySearchIngredientsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        listIngredient = new ArrayList<String>();
+        listIngredient = new HashSet<>();
         getListIngredients();
         Log.d("TAG", "LIST: " + listIngredient.size() + ": " + listIngredient);
 
+        selectIngredients = new ArrayList<>();
+        Intent result = new Intent();
 
-//        arrayAdapter = new ArrayAdapter<String>(
-//                this,
-//                    android.R.layout.simple_list_item_multiple_choice,
-//                    listIngredient
-//            );
-//        binding.idChoiceIngredients.setAdapter(arrayAdapter);
+        binding.idButtonSelected.setOnClickListener(v -> {
+            selectIngredients.clear();
+            for(int i = 0; i < binding.idChoiceIngredients.getCount(); i++){
+                if (binding.idChoiceIngredients.isItemChecked(i)) {
+                    selectIngredients.add(binding.idChoiceIngredients.getItemAtPosition(i).toString());
+                }
+            }
+            result.putStringArrayListExtra("INGREDIENTS_KEY", selectIngredients);
+            setResult(Activity.RESULT_OK, result);
+            finish();
+        });
 
+        binding.idSearchIng.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                arrayAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     private void getListIngredients(){
@@ -54,20 +78,13 @@ public class SearchIngredientsActivity extends AppCompatActivity {
 
                 List<Recipe> countRecipe = data.getData();
                 List<Ingredients> countIngredients;
-                int count;
+
 
                 for(int i = 0; i < countRecipe.size(); i++){
                     countIngredients = countRecipe.get(i).getExtendedIngredients();
-                    count = 0;
+
                     for(int j = 0; j < countIngredients.size(); j++){
-                        for(String k : listIngredient){
-                            if (k.equals(countIngredients.get(j).getName())) {
-                                count++;
-                            }
-                        }
-                        if (count == 0) {
-                            listIngredient.add(countIngredients.get(j).getName());
-                        }
+                        listIngredient.add(countIngredients.get(j).getName());
                     }
                 }
 
@@ -75,19 +92,19 @@ public class SearchIngredientsActivity extends AppCompatActivity {
                 Toast.makeText(SearchIngredientsActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
 
-            arrayAdapter = new ArrayAdapter<>(
+            arrayAdapter = new ArrayAdapter<String>(
                     this,
                     android.R.layout.simple_list_item_multiple_choice,
-                    listIngredient
+                    new ArrayList<>(listIngredient)
             );
             binding.idChoiceIngredients.setAdapter(arrayAdapter);
+
         });
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 

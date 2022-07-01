@@ -33,19 +33,16 @@ public class ShowRecipeActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.idToolBar);
 
         Recipe recipe = getIntent().getParcelableExtra(RECIPE_KEY);
-
         recipeFragment = RecipeFragment.newInstance(recipe.getTitle(),recipe.getImage());
         ingredientsFragment = IngredientsFragment.newInstance(recipe.getExtendedIngredients());
         instructionFragment = InstructionFragment.newInstance(recipe.getAnalyzedInstructions(),
                               recipe.getSummary(), recipe.getSourceUrl());
-        feedbackFragment = new FeedbackFragment();
 
         tabLayout.setupWithViewPager(viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 0);
         viewPagerAdapter.addFragment(recipeFragment, "Recipe");
         viewPagerAdapter.addFragment(ingredientsFragment, "Ingredients");
         viewPagerAdapter.addFragment(instructionFragment, "Instruction");
-        viewPagerAdapter.addFragment(feedbackFragment, "Feedback");
         viewPager.setAdapter(viewPagerAdapter);
 
     }
