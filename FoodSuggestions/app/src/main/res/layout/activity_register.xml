@@ -1,130 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    android:scrollbars="vertical"
-    tools:context=".firebase.RegisterActivity">
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="307dp"
-        android:layout_height="226dp"
-        android:layout_gravity="center"
-        android:background="@drawable/momandson" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/registerHere"
-        android:textSize="25sp"
-        android:layout_marginStart="25dp"
-        android:textColor="#ffb366"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_marginTop="5sp"
-        />
-
-    <EditText
-        android:id="@+id/idRName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/fullName"
-        android:inputType="text"
-        android:maxLines="1"
-        android:layout_marginHorizontal="25sp"
-        android:layout_marginTop="5sp"
-        android:layout_gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/idREmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:layout_marginHorizontal="25sp"
-        android:layout_marginTop="25sp"
-        android:layout_gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/idRPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:layout_marginHorizontal="25sp"
-        android:layout_marginTop="30sp"
-        android:layout_gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:minHeight="48dp" />
-
-    <EditText
-        android:id="@+id/idRConfPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/confirm"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:layout_marginHorizontal="25sp"
-        android:layout_marginTop="30sp"
-        android:layout_gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:minHeight="48dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/idRegisterButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/register"
-        android:textColor="#ffb366"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:background="@drawable/custom_button"
-        />
+    android:scrollbars="none">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="2sp">
+        android:orientation="vertical"
+        android:scrollbars="vertical"
+        tools:context=".firebase.RegisterActivity">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="307dp"
+            android:layout_height="226dp"
+            android:layout_gravity="center"
+            android:background="@drawable/momandson" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/messageLogin"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5sp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/registerHere"
             android:textColor="#ffb366"
-            android:textSize="17sp"
-            android:fontFamily="sans-serif-condensed" />
-        <TextView
-            android:id="@+id/idLoginBtn"
-            android:layout_marginStart="5sp"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/idRName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="25sp"
+            android:layout_marginTop="5sp"
+            android:ems="10"
+            android:hint="@string/fullName"
+            android:inputType="text"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp" />
+
+        <EditText
+            android:id="@+id/idREmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="25sp"
+            android:layout_marginTop="25sp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp" />
+
+        <EditText
+            android:id="@+id/idRPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="25sp"
+            android:layout_marginTop="30sp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp" />
+
+        <EditText
+            android:id="@+id/idRConfPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="25sp"
+            android:layout_marginTop="30sp"
+            android:ems="10"
+            android:hint="@string/confirm"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:minHeight="48dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/idRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_button"
+            android:text="@string/register"
+            android:textColor="#ffb366"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loginNow"
-            android:textStyle="bold"
-            android:textColor="#ffb366"
-            android:textSize="17sp"
-            android:fontFamily="sans-serif-condensed" />
+            android:layout_gravity="center"
+            android:layout_marginTop="2sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/messageLogin"
+                android:textColor="#ffb366"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/idLoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/loginNow"
+                android:textColor="#ffb366"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

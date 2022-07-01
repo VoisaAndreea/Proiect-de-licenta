@@ -4,23 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.RecipeAdapter;
+import com.example.foodsuggestions.data.Result;
 import com.example.foodsuggestions.models.Recipe;
-import com.example.foodsuggestions.retrofit.ServiceProvider;
+import com.example.foodsuggestions.viewmodels.RecipesViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.RecipeListener {
     private String TAG = RecipesActivity.class.getSimpleName();
@@ -60,40 +56,25 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.idListRecipes);
-
+        recyclerView = findViewById(R.id.idListRecipes);
 
         //se face aranjarea elementelor din lista
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
-        recipeAdapter = new RecipeAdapter (RecipesActivity.this);
+        recipeAdapter = new RecipeAdapter(RecipesActivity.this);
         recipeAdapter.setListener(this);
         recyclerView.setAdapter(recipeAdapter);
 
-        ServiceProvider.getInstance().getRecipeAPI().getRecipes().enqueue(new Callback<List<Recipe>>() {
-            @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                if(response.isSuccessful()){
-
-                    //this method will be running on UI thread
-
-                    recipeAdapter.updateRecipes(response.body());
-
-                }
-                else{
-                    Toast.makeText(RecipesActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
-                }
-                
+        RecipesViewModel model = new ViewModelProvider(this).get(RecipesViewModel.class);
+        model.getRecipes().observe(this, listOperationResponse -> {
+            if (listOperationResponse instanceof Result.Success) {
+                Result.Success<List<Recipe>> data = (Result.Success<List<Recipe>>) listOperationResponse;
+                recipeAdapter.updateRecipes(data.getData());
+            } else if (listOperationResponse instanceof Result.Error) {
+                Toast.makeText(RecipesActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             }
-
-
-            @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Toast.makeText(RecipesActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            }
-
         });
     }
 

@@ -1,18 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     tools:context=".main.HomeActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/TextTypeOne"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="269dp"
-        android:text="@string/homeActivity" />
+        android:layout_marginVertical="25dp"
+        android:fontFamily="serif-monospace"
+        android:text="@string/CategoryOne"
+        android:textAlignment="center"
+        android:textColor="#ffb366"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.foodsuggestions.main.HomeCategoryView
+        android:id="@+id/idDairy"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        app:image="@drawable/dairyfree"
+        app:layout_constraintEnd_toStartOf="@id/idGluten"
+        app:layout_constraintTop_toBottomOf="@id/TextTypeOne"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="@string/dairy" />
+
+    <com.example.foodsuggestions.main.HomeCategoryView
+        android:id="@+id/idGluten"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        app:image="@drawable/gluten"
+        app:layout_constraintTop_toBottomOf="@+id/TextTypeOne"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/idDairy"
+        app:title="@string/gluten" />
+
+    <TextView
+        android:id="@+id/TextTypeTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="serif-monospace"
+        android:text="@string/CategoryTwo"
+        android:textAlignment="center"
+        android:textColor="#ffb366"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/idDairy" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idLunch"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/idDish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextTypeTwo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/lunch" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lunch"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idDish"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/idLunch"
+        app:layout_constraintTop_toBottomOf="@+id/TextTypeTwo">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/dish" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dish"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idSide"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toStartOf="@+id/idDinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idLunch">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/side" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/side"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idDinner"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/idSide"
+        app:layout_constraintTop_toBottomOf="@+id/idDish">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@drawable/dinner" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dinner"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationBar"
@@ -20,11 +183,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
-        android:elevation="2dp"
         android:background="@drawable/round_corner"
-        app:menu="@menu/item_menu"
-        app:itemRippleColor="@android:color/transparent"
+        android:elevation="2dp"
         app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        app:itemIconTint="@drawable/item_selector"/>
-</RelativeLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/item_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
