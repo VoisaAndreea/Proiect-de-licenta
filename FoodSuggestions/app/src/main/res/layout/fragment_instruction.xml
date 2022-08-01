@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="1dp"
-    android:scrollbars="vertical"
-    tools:context=".fragments.InstructionFragment">
+    android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idListInstructions"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="1dp"
-        android:visibility="gone"
-        />
+        android:scrollbars="vertical"
+        tools:context=".fragments.InstructionFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idListInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/idSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"/>
+            android:layout_marginVertical="10dp"
+            android:fontFamily="casual"
+            android:textSize="17sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/idSourceUrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/idSummary"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="10dp"
+            android:autoLink="web"
+            android:fontFamily="sans-serif-thin"
+            android:linksClickable="true"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"
-            android:layout_marginHorizontal="10dp"
-            android:visibility="gone"
-            android:linksClickable="true"
-            android:autoLink="web"
-            android:layout_alignParentBottom="true"/>
+            android:visibility="gone" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
