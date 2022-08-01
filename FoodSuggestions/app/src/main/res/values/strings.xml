@@ -31,7 +31,7 @@
     <!--    Navigation Bar -->
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="list">Explore</string>
+    <string name="list">Recipes</string>
     <string name="Account">Account</string>
 
     <!--    Home Activity -->
@@ -43,6 +43,13 @@
     <string name="dish">Main Dish</string>
     <string name="side">Side Dish</string>
     <string name="dinner">Dinner</string>
+
+
+    <!--    Search Activity-->
+    <string name="searchHint">Search a recipe</string>
+    <string name="searchHintIng">Search a ingredient</string>
+    <string name="searchIngredient">Search using ingredients</string>
+    <string name="buttonSearch">Check</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
