@@ -8,12 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.foodsuggestions.data.Result;
 import com.example.foodsuggestions.databinding.ActivitySearchIngredientsBinding;
 import com.example.foodsuggestions.models.Ingredients;
@@ -26,10 +24,10 @@ import java.util.List;
 import java.util.Set;
 
 public class SearchIngredientsActivity extends AppCompatActivity {
-    ActivitySearchIngredientsBinding binding;
-    Set<String> listIngredient;
-    ArrayAdapter<String> arrayAdapter;
-    ArrayList<String> selectIngredients;
+    private ActivitySearchIngredientsBinding binding;
+    private Set<String> listIngredient;
+    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<String> selectIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
