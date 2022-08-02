@@ -4,19 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Predicate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.foodsuggestions.R;
+
 import com.example.foodsuggestions.adapters.RecipeAdapter;
 import com.example.foodsuggestions.data.RecipesRepository;
 import com.example.foodsuggestions.databinding.ActivityCategoryBinding;
 import com.example.foodsuggestions.models.Recipe;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.Serializable;
 import java.util.List;
@@ -34,6 +32,7 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
     private ActivityCategoryBinding binding;
     private RecipeAdapter recipeAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,31 +40,6 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         setContentView(binding.getRoot());
 
         FilterCriteria filter = (FilterCriteria) getIntent().getSerializableExtra(FILTER_CATEGORY_KEY);
-
-        binding.navigationBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.nav_account:
-                        startActivity(new Intent(CategoryActivity.this, ContActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.nav_search:
-                        startActivity(new Intent(CategoryActivity.this, SearchActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.nav_recipes:
-                        startActivity(new Intent(CategoryActivity.this, RecipesActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.nav_home:
-                        startActivity(new Intent(CategoryActivity.this, HomeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
-            }
-        });
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
         binding.listCategory.setLayoutManager(manager);

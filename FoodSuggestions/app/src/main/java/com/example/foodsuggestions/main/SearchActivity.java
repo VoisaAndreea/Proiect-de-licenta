@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.RecipeAdapter;
 import com.example.foodsuggestions.data.RecipesRepository;
 import com.example.foodsuggestions.databinding.ActivitySearchBinding;
+import com.example.foodsuggestions.models.Ingredients;
 import com.example.foodsuggestions.models.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -114,7 +116,12 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
                 for(Recipe r : recipes){
                     Log.d("TAG", "RECIPES:" + r.getTitle());
                 }
-                recipeAdapter.updateRecipes(recipes);
+                if (recipes.isEmpty()) {
+                    Toast.makeText(SearchActivity.this, "RECIPES NOT FOUND", Toast.LENGTH_SHORT).show();
+                } else {
+                    recipeAdapter.updateRecipes(recipes);
+                }
+
                 Log.d("TAG", "RECIPES:" + recipes.size());
                 Log.d("TAG", "LIST INGREDIENNTS:" + ingredients);
             }
@@ -132,7 +139,20 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
         if (criteria.title != null) {
             return recipe -> recipe.getTitle().toLowerCase().contains(criteria.title.toLowerCase());
         } else if (criteria.ingredientList != null) {
-            return recipe -> recipe.getExtendedIngredients().get(0).getName().equals(criteria.ingredientList.get(0));
+            return recipe -> {
+                int count = 0;
+                for(Ingredients ingredient : recipe.getExtendedIngredients() ){
+                    for(String searchIngredient : criteria.ingredientList){
+                        if (ingredient.getName().equals(searchIngredient)) {
+                            count++;
+                        }
+                    }
+                }
+                return count == criteria.ingredientList.size();
+            };
+
+
+
         } else {
             return null;
 
