@@ -3,10 +3,10 @@ package com.example.foodsuggestions.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.foodsuggestions.data.RecipesRepository
-import com.example.foodsuggestions.data.RecipesRepository.RecipesCallback
+import com.example.data.RecipesRepository
+import com.example.data.RecipesRepository.RecipesCallback
 import com.example.foodsuggestions.data.Result
-import com.example.foodsuggestions.models.Recipe
+import com.example.data.model.Recipe
 
 class RecipesViewModel : ViewModel() {
 

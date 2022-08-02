@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodsuggestions.adapters.RecipeAdapter;
-import com.example.foodsuggestions.data.RecipesRepository;
+import com.example.data.RecipesRepository;
 import com.example.foodsuggestions.databinding.ActivityCategoryBinding;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Recipe;
 
 import java.io.Serializable;
 import java.util.List;

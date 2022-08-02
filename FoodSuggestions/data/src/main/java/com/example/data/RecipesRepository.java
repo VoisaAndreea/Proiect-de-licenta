@@ -1,14 +1,17 @@
-package com.example.foodsuggestions.data;
+package com.example.data;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Predicate;
-import com.example.foodsuggestions.models.Recipe;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
+import com.example.data.model.Recipe;
+import com.example.data.remote.ServiceProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecipesRepository {
     private static final RecipesRepository instance = new RecipesRepository();

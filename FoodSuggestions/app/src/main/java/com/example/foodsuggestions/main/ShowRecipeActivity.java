@@ -13,7 +13,7 @@ import com.example.foodsuggestions.fragments.FeedbackFragment;
 import com.example.foodsuggestions.fragments.IngredientsFragment;
 import com.example.foodsuggestions.fragments.InstructionFragment;
 import com.example.foodsuggestions.fragments.RecipeFragment;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Recipe;
 import com.google.android.material.tabs.TabLayout;
 
 public class ShowRecipeActivity extends AppCompatActivity {

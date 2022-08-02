@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.IngredientsAdapter;
-import com.example.foodsuggestions.models.Ingredients;
+import com.example.data.model.Ingredients;
 
 import java.util.ArrayList;
 import java.util.List;

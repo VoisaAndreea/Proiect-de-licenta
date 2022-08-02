@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.RecipeAdapter;
 import com.example.foodsuggestions.data.Result;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Recipe;
 import com.example.foodsuggestions.viewmodels.RecipesViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
