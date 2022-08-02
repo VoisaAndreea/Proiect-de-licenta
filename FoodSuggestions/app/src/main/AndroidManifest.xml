@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FoodSuggestions"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".main.SearchIngredientsActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.ContActivity"
             android:exported="false" />
         <activity
@@ -33,7 +36,6 @@
         <activity
             android:name=".main.RecipesActivity"
             android:exported="false" />
-
         <activity android:name=".main.CategoryActivity" />
         <activity
             android:name=".main.MainActivity"

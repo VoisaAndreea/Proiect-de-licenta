@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
-            android:fontFamily="casual"
             android:textSize="17sp"
             android:visibility="gone" />
 

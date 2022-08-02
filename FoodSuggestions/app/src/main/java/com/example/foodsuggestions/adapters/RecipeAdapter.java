@@ -28,6 +28,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.listener = listener;
     }
     public void updateRecipes(List<Recipe> recipe){
+        this.recipe.clear();
         this.recipe.addAll(recipe);
         notifyDataSetChanged();
     }
