@@ -49,7 +49,7 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         recipeAdapter.setListener(this);
         binding.listCategory.setAdapter(recipeAdapter);
 
-        RecipesRepository.getInstance().getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
+        RecipesRepository.getInstance(this.getApplicationContext()).getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
             @Override
             public void onRecipesReceived(List<Recipe> recipes) {
                 recipeAdapter.updateRecipes(recipes);

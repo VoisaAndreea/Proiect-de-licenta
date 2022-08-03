@@ -110,7 +110,7 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void getResult(FilterSearch newText){
-        RecipesRepository.getInstance().getRecipes(getPredicate(newText), new RecipesRepository.RecipesCallback() {
+        RecipesRepository.getInstance(this.getApplicationContext()).getRecipes(getPredicate(newText), new RecipesRepository.RecipesCallback() {
             @Override
             public void onRecipesReceived(List<Recipe> recipes) {
                 for(Recipe r : recipes){
