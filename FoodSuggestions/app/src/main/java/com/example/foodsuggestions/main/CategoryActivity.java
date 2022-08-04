@@ -49,17 +49,21 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         recipeAdapter.setListener(this);
         binding.listCategory.setAdapter(recipeAdapter);
 
-        RecipesRepository.getInstance(this.getApplicationContext()).getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
-            @Override
-            public void onRecipesReceived(List<Recipe> recipes) {
-                recipeAdapter.updateRecipes(recipes);
-            }
+        try {
+            RecipesRepository.getInstance().getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
+                @Override
+                public void onRecipesReceived(List<Recipe> recipes) {
+                    recipeAdapter.updateRecipes(recipes);
+                }
 
-            @Override
-            public void onFailure(Throwable t) {
-                // should not happen because no call is made
-            }
-        });
+                @Override
+                public void onFailure(Throwable t) {
+                    // should not happen because no call is made
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
