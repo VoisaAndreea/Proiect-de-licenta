@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodsuggestions.R;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Recipe;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

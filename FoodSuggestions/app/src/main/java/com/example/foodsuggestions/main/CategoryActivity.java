@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodsuggestions.adapters.RecipeAdapter;
-import com.example.foodsuggestions.data.RecipesRepository;
+import com.example.data.RecipesRepository;
 import com.example.foodsuggestions.databinding.ActivityCategoryBinding;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Recipe;
 
 import java.io.Serializable;
 import java.util.List;
@@ -49,17 +49,21 @@ public class CategoryActivity extends AppCompatActivity implements RecipeAdapter
         recipeAdapter.setListener(this);
         binding.listCategory.setAdapter(recipeAdapter);
 
-        RecipesRepository.getInstance().getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
-            @Override
-            public void onRecipesReceived(List<Recipe> recipes) {
-                recipeAdapter.updateRecipes(recipes);
-            }
+        try {
+            RecipesRepository.getInstance().getRecipes(getPredicate(filter), new RecipesRepository.RecipesCallback() {
+                @Override
+                public void onRecipesReceived(List<Recipe> recipes) {
+                    recipeAdapter.updateRecipes(recipes);
+                }
 
-            @Override
-            public void onFailure(Throwable t) {
-                // should not happen because no call is made
-            }
-        });
+                @Override
+                public void onFailure(Throwable t) {
+                    // should not happen because no call is made
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

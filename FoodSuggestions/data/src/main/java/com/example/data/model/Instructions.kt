@@ -1,8 +1,7 @@
-package com.example.foodsuggestions.models
+package com.example.data.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.example.foodsuggestions.models.Steps
 import kotlinx.parcelize.Parcelize
 import java.util.ArrayList
 

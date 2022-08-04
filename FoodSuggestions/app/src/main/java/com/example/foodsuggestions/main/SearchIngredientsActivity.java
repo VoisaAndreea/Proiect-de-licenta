@@ -14,8 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.foodsuggestions.adapters.SearchIngredientAdapter;
 import com.example.foodsuggestions.data.Result;
 import com.example.foodsuggestions.databinding.ActivitySearchIngredientsBinding;
-import com.example.foodsuggestions.models.Ingredients;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Ingredients;
+import com.example.data.model.Recipe;
 import com.example.foodsuggestions.viewmodels.RecipesViewModel;
 
 import java.util.ArrayList;

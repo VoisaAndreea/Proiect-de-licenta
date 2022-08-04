@@ -18,10 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.adapters.RecipeAdapter;
-import com.example.foodsuggestions.data.RecipesRepository;
+import com.example.data.RecipesRepository;
 import com.example.foodsuggestions.databinding.ActivitySearchBinding;
-import com.example.foodsuggestions.models.Ingredients;
-import com.example.foodsuggestions.models.Recipe;
+import com.example.data.model.Ingredients;
+import com.example.data.model.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -110,27 +110,31 @@ public class SearchActivity extends AppCompatActivity implements RecipeAdapter.R
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void getResult(FilterSearch newText){
-        RecipesRepository.getInstance().getRecipes(getPredicate(newText), new RecipesRepository.RecipesCallback() {
-            @Override
-            public void onRecipesReceived(List<Recipe> recipes) {
-                for(Recipe r : recipes){
-                    Log.d("TAG", "RECIPES:" + r.getTitle());
+        try {
+            RecipesRepository.getInstance().getRecipes(getPredicate(newText), new RecipesRepository.RecipesCallback() {
+                @Override
+                public void onRecipesReceived(List<Recipe> recipes) {
+                    for(Recipe r : recipes){
+                        Log.d("TAG", "RECIPES:" + r.getTitle());
+                    }
+                    if (recipes.isEmpty()) {
+                        Toast.makeText(SearchActivity.this, "RECIPES NOT FOUND", Toast.LENGTH_SHORT).show();
+                    } else {
+                        recipeAdapter.updateRecipes(recipes);
+                    }
+
+                    Log.d("TAG", "RECIPES:" + recipes.size());
+                    Log.d("TAG", "LIST INGREDIENNTS:" + ingredients);
                 }
-                if (recipes.isEmpty()) {
-                    Toast.makeText(SearchActivity.this, "RECIPES NOT FOUND", Toast.LENGTH_SHORT).show();
-                } else {
-                    recipeAdapter.updateRecipes(recipes);
+                @Override
+                public void onFailure(Throwable t) {
+
                 }
 
-                Log.d("TAG", "RECIPES:" + recipes.size());
-                Log.d("TAG", "LIST INGREDIENNTS:" + ingredients);
-            }
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-
-        });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
