@@ -1,9 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 
 }
-apply plugin: 'kotlin-android'
+
 
 android {
     compileSdk 32
@@ -31,6 +33,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
 }
 
