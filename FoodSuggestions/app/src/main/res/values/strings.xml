@@ -12,13 +12,19 @@
     <string name="homeActivity">HOME ACTIVITY</string>
     <string name="accountActivity">PERSONAL CONT ACTIVITY</string>
 
-    <!--    Login And Register -->
+    <!--    Login and Register  -->
     <string name="loginHere">Login Here</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="messageAccount">Don\'t have an account?</string>
     <string name="registerNow">Register now</string>
+    <string name="mailErrorMassage">Please enter a valid email</string>
+    <string name="passwordErrorMassage">Please enter a valid password</string>
+    <string name="fullNameErrorMessage">Full name is required!</string>
+    <string name="confirmPasswordErrorMessage">Passwords are not matching</string>
+    <string name="registerMessage">Failed to register!</string>
+    <string name="loginMessage">Filed to login! Please check your credentials or register.</string>
 
     <string name="registerHere">Register Here</string>
     <string name="fullName">Full Name</string>

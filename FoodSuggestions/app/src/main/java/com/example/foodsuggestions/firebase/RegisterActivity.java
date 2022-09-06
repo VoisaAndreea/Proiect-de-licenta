@@ -2,130 +2,130 @@ package com.example.foodsuggestions.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodsuggestions.R;
 import com.example.foodsuggestions.databinding.ActivityRegisterBinding;
-import com.example.foodsuggestions.models.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.foodsuggestions.viewmodels.RegisterViewModel;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private FirebaseAuth mAuth;
-    private ActivityRegisterBinding binding;
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        ActivityRegisterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        binding.setLifecycleOwner(this);
 
-        mAuth = FirebaseAuth.getInstance();
-        binding.idLoginBtn.setOnClickListener(this);
-        binding.idRegisterButton.setOnClickListener(this);
-    }
+        RegisterViewModel registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        binding.setRegisterViewModel(registerViewModel);
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case (R.id.idLoginBtn):
-                finish();
-                break;
-            case (R.id.idRegisterButton):
-                registerUser();
-                break;
-        }
-    }
+        registerViewModel.getNavigateToLoginEvent().observe(this,
+                unit -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class))
+        );
 
-    private void registerUser(){
-        String fullName = binding.idRName.getText().toString().trim();
-        String emailRegister = binding.idREmail.getText().toString().trim();
-        String passwordRegister = binding.idRPassword.getText().toString().trim();
-        String confirmPassword = binding.idRConfPassword.getText().toString().trim();
+        registerViewModel.getFullNameError().observe(this, error -> {
+            if (error) {
+                binding.idRName.setError(getString(R.string.fullNameErrorMessage));
+            } else {
+                binding.idRName.setError(null);
+            }
+        });
 
-        if(fullName.isEmpty()){
-            binding.idRName.setError("Full name is required!");
-            binding.idRName.requestFocus();
-            return;
-        }
-        if(emailRegister.isEmpty()){
-            binding.idREmail.setError("Email is required!");
-            binding.idREmail.requestFocus();
-            return;
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(emailRegister).matches()){
-            binding.idREmail.setError("Please provide valid email");
-            binding.idREmail.requestFocus();
-            return;
-        }
-        if(passwordRegister.isEmpty()){
-            binding.idRPassword.setError("Password is required!");
-            binding.idRPassword.requestFocus();
-            return;
-        }
-        if(passwordRegister.length() < 6){
-            binding.idRPassword.setError("Min password length should be 6 characters!");
-            binding.idRPassword.requestFocus();
-            return;
-        }
-        if(!passwordRegister.equals(confirmPassword)) {
-            binding.idRConfPassword.setError("Passwords are not matching");
-            binding.idRConfPassword.requestFocus();
-            return;
-        }
+        registerViewModel.getMailError().observe(this, error -> {
+            if (error) {
+                binding.idREmail.setError(getString(R.string.mailErrorMassage));
+            } else {
+                binding.idREmail.setError(null);
+            }
+        });
 
-        mAuth.createUserWithEmailAndPassword(emailRegister, passwordRegister)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            User user = new User(fullName, emailRegister);
-                            FirebaseDatabase
-                                    .getInstance("https://registerandloginproject-default-rtdb.europe-west1.firebasedatabase.app/")
-                                    .getReference("users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        binding.idRName.getText().clear();
-                                        binding.idREmail.getText().clear();
-                                        binding.idRPassword.getText().clear();
-                                        binding.idRConfPassword.getText().clear();
+        registerViewModel.getPasswordError().observe(this, error -> {
+            if (error) {
+                binding.idRPassword.setError(getString(R.string.passwordErrorMassage));
+            } else {
+                binding.idRPassword.setError(null);
+            }
+        });
 
-                                        Toast.makeText(
-                                                RegisterActivity.this,
-                                                "User has been registered successfully!",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
+        registerViewModel.getConfirmPasswordError().observe(this, error -> {
+            if (error) {
+                binding.idRConfPassword.setError(getString(R.string.confirmPasswordErrorMessage));
+            } else {
+                binding.idRConfPassword.setError(null);
+            }
+        });
 
-                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                    }else{
-                                        Toast.makeText(
-                                                RegisterActivity.this,
-                                                "Failed to register! Try again!",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
-                                    }
-                                }
-                            });
-                        }else{
-                            Toast.makeText(
-                                    RegisterActivity.this,
-                                    "Failed to register",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                        }
-                    }
-                });
+        binding.idRName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                registerViewModel.getFullNameError().postValue(false);
+            }
+        });
+
+        binding.idREmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                registerViewModel.getMailError().postValue(false);
+            }
+        });
+
+        binding.idRPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                registerViewModel.getPasswordError().postValue(false);
+            }
+        });
+
+        binding.idRConfPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                registerViewModel.getConfirmPasswordError().postValue(false);
+            }
+        });
+
+        registerViewModel.getStatus().observe(this, status -> {
+            if ( status != null) {
+                registerViewModel.getStatus().postValue(null);
+                Toast.makeText(this, getString(R.string.registerMessage), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

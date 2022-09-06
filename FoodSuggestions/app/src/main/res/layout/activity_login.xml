@@ -85,7 +85,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    isVisible="@{loginViewModel.loading != true}"
+                    isVisible="@{!loginViewModel.loading}"
                     android:onClick="@{() -> loginViewModel.userLogin()}"/>
 
                 <androidx.core.widget.ContentLoadingProgressBar
@@ -93,6 +93,7 @@
                     android:layout_height="wrap_content"
                     style="?android:attr/progressBarStyleLarge"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     isVisible="@{loginViewModel.loading}"/>
             </FrameLayout>
 
