@@ -42,7 +42,6 @@ class LoginViewModel : ViewModel() {
                         navigateToHomeEvent.postValue(Unit)
                     } else {
                         status.value = true
-                        _loading.value = false
                     }
 
                 })

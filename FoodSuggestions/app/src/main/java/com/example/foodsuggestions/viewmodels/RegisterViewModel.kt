@@ -57,6 +57,7 @@ class RegisterViewModel : ViewModel() {
                             .child(FirebaseAuth.getInstance().getCurrentUser()!!.getUid())
                             .setValue(user)
                             .addOnCompleteListener(OnCompleteListener { task ->
+                                _loading.postValue(false)
                                 if (task.isSuccessful) {
                                     navigateToLoginEvent.postValue(Unit)
                                 }
