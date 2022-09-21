@@ -2,18 +2,14 @@ package com.example.foodsuggestions.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodsuggestions.R;
 import com.example.data.model.Recipe;
-import com.squareup.picasso.Picasso;
+import com.example.foodsuggestions.R;
+import com.example.foodsuggestions.databinding.RowRecipeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,24 +34,23 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
     //Pentru a stoca informatii despre vizualizarea unui singur element din lista
     public class ViewHolder extends RecyclerView.ViewHolder{
+        private final RowRecipeBinding binding;
 
-        TextView nameRecipe;
-        ImageView imageRecipe;
-        RelativeLayout continer;
+        public ViewHolder(RowRecipeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            continer = itemView.findViewById(R.id.action_container);
-            nameRecipe = itemView.findViewById(R.id.idTitleRe);
-            imageRecipe = itemView.findViewById(R.id.idImageRe);
+        public void bind(Recipe recipe) {
+            this.binding.setRecipe(recipe);
+            binding.getRoot().setAnimation(AnimationUtils.loadAnimation(mInflater.getContext(), R.anim.scale_animation));
         }
 
     }
 
     public RecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.from(parent.getContext()).inflate(R.layout.row_recipe,parent,false);
-        RecipeAdapter.ViewHolder viewHolder = new ViewHolder(view);
+        RowRecipeBinding binding  = RowRecipeBinding.inflate(mInflater, parent, false);
+        RecipeAdapter.ViewHolder viewHolder = new ViewHolder(binding);
 
 
         viewHolder.itemView.setOnClickListener(v-> {
@@ -68,11 +63,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(RecipeAdapter.ViewHolder holder, int position) {
-
-        holder.continer.setAnimation(AnimationUtils.loadAnimation(mInflater.getContext(), R.anim.scale_animation));
-        holder.nameRecipe.setText(recipe.get(position).getTitle());
-        Picasso.with(mInflater.getContext()).load(recipe.get(position).getImage()).into(holder.imageRecipe);
-
+        holder.bind(recipe.get(position));
     }
 
 
