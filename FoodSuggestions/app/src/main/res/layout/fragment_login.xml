@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="registerViewModel"
-            type="com.example.foodsuggestions.viewmodels.RegisterViewModel" />
+            name="loginViewModel"
+            type="com.example.foodsuggestions.viewmodels.LoginViewModel" />
     </data>
 
     <ScrollView
@@ -19,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:scrollbars="vertical"
-            tools:context=".firebase.RegisterActivity">
+            tools:context=".navigationComponent.LoginFragment">
+
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -33,30 +34,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="5sp"
+                android:layout_marginTop="25sp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@string/registerHere"
+                android:text="@string/loginHere"
                 android:textColor="#ffb366"
                 android:textSize="25sp" />
 
             <EditText
-                android:id="@+id/idRName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="25sp"
-                android:layout_marginTop="5sp"
-                android:ems="10"
-                android:hint="@string/fullName"
-                android:inputType="text"
-                android:maxLines="1"
-                android:minHeight="48dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:text="@={registerViewModel.fullName}"/>
-
-            <EditText
-                android:id="@+id/idREmail"
+                android:id="@+id/idLEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,11 +53,10 @@
                 android:maxLines="1"
                 android:minHeight="48dp"
                 android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:text="@={registerViewModel.mail}"/>
+                android:text="@={loginViewModel.mail}"/>
 
             <EditText
-                android:id="@+id/idRPassword"
+                android:id="@+id/idLPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -84,76 +68,64 @@
                 android:maxLines="1"
                 android:minHeight="48dp"
                 android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:text="@={registerViewModel.password}"/>
+                android:text="@={loginViewModel.password}"/>
 
-            <EditText
-                android:id="@+id/idRConfPassword"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="25sp"
-                android:layout_marginTop="30sp"
-                android:ems="10"
-                android:hint="@string/confirm"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:minHeight="48dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:text="@={registerViewModel.confirmPassword}"/>
+                android:layout_marginTop="50dp">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/idRegisterButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/custom_button"
-                android:text="@string/register"
-                android:textColor="#ffb366"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                isVisible="@{!registerViewModel.loading}"
-                android:onClick="@{() -> registerViewModel.userRegister()}"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/loginButton"
+                    isVisible="@{!loginViewModel.loading}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@drawable/custom_button"
+                    android:onClick="@{() -> loginViewModel.userLogin()}"
+                    android:text="@string/login"
+                    android:textColor="#ffb366"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                isVisible="@{registerViewModel.loading}"/>
+                <androidx.core.widget.ContentLoadingProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    isVisible="@{loginViewModel.loading}"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="2sp"
+                android:layout_marginTop="15sp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/messageLogin"
+                    android:text="@string/messageAccount"
                     android:textColor="#ffb366"
                     android:textSize="17sp" />
 
                 <TextView
-                    android:id="@+id/idLoginBtn"
+                    android:id="@+id/idRegisterBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5sp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="@string/loginNow"
+                    android:text="@string/registerNow"
                     android:textColor="#ffb366"
                     android:textSize="17sp"
                     android:textStyle="bold"
-                    android:onClick="@{() -> registerViewModel.navigateToLoginScreen()}"/>
+                    android:onClick="@{() -> loginViewModel.navigateToRegisterScreen()}"/>
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </layout>
