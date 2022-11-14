@@ -2,9 +2,11 @@ package com.example.foodsuggestions.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.foodsuggestions.R;
-import com.example.foodsuggestions.firebase.LoginActivity;
+import com.example.foodsuggestions.navigationComponent.AuthenticationActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(intent);
             } else {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
                 startActivity(intent);
             }
         });
